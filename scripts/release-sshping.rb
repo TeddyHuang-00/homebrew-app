@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Adpoted from https://github.com/oven-sh/homebrew-bun/blob/main/scripts/release.rb
 
 require "net/http"
@@ -5,7 +7,7 @@ require "json"
 require "digest"
 
 version = ARGV[0]
-if version == nil
+if version.nil?
   abort "Usage: release-sshping.rb [x.y.z]"
 else
   version = version.gsub(/[a-z-]*/i, "")
@@ -16,25 +18,22 @@ puts "Releasing sshping on Homebrew: v#{version}"
 url =
   "https://api.github.com/repos/TeddyHuang-00/sshping/releases/tags/v#{version}"
 response = Net::HTTP.get_response(URI(url))
-unless response.is_a?(Net::HTTPSuccess)
-  abort "Did not find release: bun-v#{version} [status: #{response.code}]"
-end
+abort "Did not find release: [status: #{response.code}]" unless response.is_a?(Net::HTTPSuccess)
 
 release = JSON.parse(response.body)
 puts "Found release: #{release["name"]}"
 
 url = "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
-begin
+loop do
   response = Net::HTTP.get_response(URI(url))
   url = response["location"]
-end while response.is_a?(Net::HTTPRedirection)
-
-unless response.is_a?(Net::HTTPSuccess)
-  abort "Did not find source tarball [status: #{response.code}]"
+  break unless response.is_a?(Net::HTTPRedirection)
 end
 
+abort "Did not find tarball [status: #{response.code}]" unless response.is_a?(Net::HTTPSuccess)
+
 sha256 = Digest::SHA256.hexdigest(response.body).strip
-puts "Found source tarball [sha256: #{sha256}]"
+puts "Found tarball [sha256: #{sha256}]"
 
 formula = ""
 File.open("Formula/sshping.rb", "r") do |file|
@@ -54,8 +53,8 @@ File.open("Formula/sshping.rb", "r") do |file|
   end
 end
 
-versioned_class = "class SshpingAT#{version.gsub(/\./, "")}"
-versioned_formula = formula.gsub(/class Sshping/, versioned_class)
+versioned_class = "class SshpingAT#{version.delete(".")}"
+versioned_formula = formula.gsub("class Sshping", versioned_class)
 File.write("Formula/sshping@#{version}.rb", versioned_formula)
 puts "Saved Formula/sshping@#{version}.rb"
 
