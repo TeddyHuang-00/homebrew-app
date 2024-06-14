@@ -53,11 +53,6 @@ File.open("Formula/sshping.rb", "r") do |file|
   end
 end
 
-versioned_class = "class SshpingAT#{version.delete(".")}"
-versioned_formula = formula.gsub("class Sshping", versioned_class)
-File.write("Formula/sshping@#{version}.rb", versioned_formula)
-puts "Saved Formula/sshping@#{version}.rb"
-
 File.write("Formula/sshping.rb", formula)
 puts "Saved Formula/sshping.rb"
 
