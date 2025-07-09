@@ -1,10 +1,10 @@
 class Sshping < Formula
   desc "SSH-based ping that measures echo latency and transfer speed"
   homepage "https://crates.io/crates/sshping"
-  version = "0.2.0"
+  version = "0.2.1"
 
   url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
-  sha256 "6d1b4ddc5f39cadb9c9f2e8f9dd81db3555d456785a3707e595761ce91b2e474"
+  sha256 "8cd2622330e296d46a1c316bd87311d411505ce2b43be979819dc7b958d6157c"
   license "MIT"
 
   depends_on "rust" => :build
