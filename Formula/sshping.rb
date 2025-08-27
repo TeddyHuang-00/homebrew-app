@@ -11,8 +11,7 @@ class Sshping < Formula
   depends_on "openssl"
 
   def install
-    system "cargo", "build", "-r"
-    bin.install "target/release/sshping"
+    system "cargo", "install", *std_cargo_args
     bash_completion.install "target/release/completions/sshping.bash"
     zsh_completion.install "target/release/completions/_sshping"
     fish_completion.install "target/release/completions/sshping.fish"
