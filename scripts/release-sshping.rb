@@ -42,7 +42,7 @@ File.open("Formula/sshping.rb", "r") do |file|
 
     new_line =
       if query.start_with?("version")
-        line.gsub(/"[0-9\.]{1,}"/, "\"#{version}\"")
+        line.gsub(/"[0-9.]{1,}"/, "\"#{version}\"")
       elsif query.start_with?("sha256")
         line.gsub(/"[A-Fa-f0-9]{1,}"/, "\"#{sha256}\"")
       else
