@@ -1,6 +1,6 @@
 class Sshping < Formula
   desc "SSH-based ping that measures echo latency and transfer speed"
-  homepage "https://crates.io/crates/sshping"
+  homepage "https://github.com/TeddyHuang-00/sshping"
   version = "0.2.2"
 
   url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
