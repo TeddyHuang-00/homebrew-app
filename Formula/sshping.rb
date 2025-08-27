@@ -8,7 +8,7 @@ class Sshping < Formula
   license "MIT"
 
   depends_on "rust" => :build
-  depends_on "openssl@3"
+  depends_on "openssl"
 
   on_linux do
     depends_on "zlib"
