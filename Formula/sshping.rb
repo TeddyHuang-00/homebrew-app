@@ -11,8 +11,9 @@ class Sshping < Formula
 
   on_linux do
     depends_on "pkg-config" => :build
-    depends_on "openssl@3"
   end
+
+  depends_on "openssl@3"
 
   def install
     system "cargo", "install", *std_cargo_args
