@@ -3,15 +3,8 @@ class Sshping < Formula
   homepage "https://github.com/TeddyHuang-00/sshping"
   version = "0.2.3"
   url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
-  sha256 "3e65064c87edab29a6f0253cacfad3f423728ea70f5d24259e61a75ba68fff61"
+  sha256 "0a4cc419f796176fa0396985ce74389ce3171d9ab8a581f1388e1d524d48b681"
   license "MIT"
-
-  bottle do
-    root_url "https://github.com/TeddyHuang-00/homebrew-app/releases/download/sshping-0.2.2"
-    sha256 cellar: :any,                 arm64_sequoia: "3e65064c87edab29a6f0253cacfad3f423728ea70f5d24259e61a75ba68fff61"
-    sha256 cellar: :any,                 ventura:       "3e65064c87edab29a6f0253cacfad3f423728ea70f5d24259e61a75ba68fff61"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3e65064c87edab29a6f0253cacfad3f423728ea70f5d24259e61a75ba68fff61"
-  end
 
   depends_on "rust" => :build
   depends_on "openssl@3"
