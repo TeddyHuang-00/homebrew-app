@@ -6,24 +6,28 @@ require "net/http"
 require "json"
 require "digest"
 
-version = ARGV[0]
+package = ARGV[0]
+version = ARGV[1]
+if package.nil?
+  abort "Usage: release.rb [package] [x.y.z]"
+end
 if version.nil?
-  abort "Usage: release-sshping.rb [x.y.z]"
+  abort "Usage: release.rb [package] [x.y.z]"
 else
   version = version.gsub(/[a-z-]*/i, "")
 end
 
-puts "Releasing sshping on Homebrew: v#{version}"
+puts "Releasing #{package} on Homebrew: v#{version}"
 
 url =
-  "https://api.github.com/repos/TeddyHuang-00/sshping/releases/tags/v#{version}"
+  "https://api.github.com/repos/TeddyHuang-00/#{package}/releases/tags/v#{version}"
 response = Net::HTTP.get_response(URI(url))
 abort "Did not find release: [status: #{response.code}]" unless response.is_a?(Net::HTTPSuccess)
 
 release = JSON.parse(response.body)
 puts "Found release: #{release["name"]}"
 
-url = "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
+url = "https://github.com/TeddyHuang-00/#{package}/archive/refs/tags/v#{version}.tar.gz"
 loop do
   response = Net::HTTP.get_response(URI(url))
   url = response["location"]
@@ -36,7 +40,7 @@ sha256 = Digest::SHA256.hexdigest(response.body).strip
 puts "Found tarball [sha256: #{sha256}]"
 
 formula = ""
-File.open("Formula/sshping.rb", "r") do |file|
+File.open("Formula/#{package}.rb", "r") do |file|
   file.each_line do |line|
     query = line.strip
 
@@ -53,13 +57,13 @@ File.open("Formula/sshping.rb", "r") do |file|
   end
 end
 
-File.write("Formula/sshping.rb", formula)
-puts "Saved Formula/sshping.rb"
+File.write("Formula/#{package}.rb", formula)
+puts "Saved Formula/#{package}.rb"
 
-readme = File.read("README.md")
-new_readme =
-  readme.gsub(/sshping@[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}/, "sshping@#{version}")
-File.write("README.md", new_readme)
-puts "Saved README.md"
+# readme = File.read("README.md")
+# new_readme =
+#   readme.gsub(/#{package}@[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}/, "#{package}@#{version}")
+# File.write("README.md", new_readme)
+# puts "Saved README.md"
 
 puts "Done"
