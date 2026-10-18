@@ -1,8 +1,8 @@
 class Sshping < Formula
   desc "SSH-based ping that measures echo latency and transfer speed"
   homepage "https://github.com/TeddyHuang-00/sshping"
-  url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
   version = "0.5.1"
+  url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v#{version}.tar.gz"
   sha256 "4514b7a0659c8a8cbdf6b95fec9fd26f79ea40fc1482034fef6e0f2391166d0e"
   license "MIT"
 
