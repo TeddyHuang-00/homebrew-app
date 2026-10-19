@@ -42,13 +42,13 @@ puts "Found tarball [sha256: #{sha256}]"
 formula = ""
 File.open("Formula/#{package}.rb", "r") do |file|
   file.each_line do |line|
-    query = line.strip
-
     new_line =
-      if query.start_with?("version")
+      if line.match?(/^  version /)
         line.gsub(/"[0-9.]{1,}"/, "\"#{version}\"")
-      elsif query.start_with?("sha256")
+      elsif line.match?(/^  sha256 /)
         line.gsub(/"[A-Fa-f0-9]{1,}"/, "\"#{sha256}\"")
+      elsif line.match?(/^  url /)
+        line.gsub(/v[0-9]+(\.[0-9]+)*\.tar\.gz/, "v#{version}.tar.gz")
       else
         line
       end
