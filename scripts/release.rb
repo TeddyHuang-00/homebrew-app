@@ -43,11 +43,12 @@ formula = ""
 File.open("Formula/#{package}.rb", "r") do |file|
   file.each_line do |line|
     new_line =
-      if line.match?(/^  version /)
+      case line
+      when /^  version /
         line.gsub(/"[0-9.]{1,}"/, "\"#{version}\"")
-      elsif line.match?(/^  sha256 /)
+      when /^  sha256 /
         line.gsub(/"[A-Fa-f0-9]{1,}"/, "\"#{sha256}\"")
-      elsif line.match?(/^  url /)
+      when /^  url /
         line.gsub(/v[0-9]+(\.[0-9]+)*\.tar\.gz/, "v#{version}.tar.gz")
       else
         line
