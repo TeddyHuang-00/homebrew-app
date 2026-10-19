@@ -2,7 +2,6 @@ class Sshping < Formula
   desc "SSH-based ping that measures echo latency and transfer speed"
   homepage "https://github.com/TeddyHuang-00/sshping"
   url "https://github.com/TeddyHuang-00/sshping/archive/refs/tags/v0.5.1.tar.gz"
-  version "0.5.1"
   sha256 "4514b7a0659c8a8cbdf6b95fec9fd26f79ea40fc1482034fef6e0f2391166d0e"
   license "MIT"
 
@@ -27,6 +26,8 @@ class Sshping < Formula
     pwsh_completion.install "target/release/completions/_sshping.ps1"
     man.install "target/release/man/sshping.1"
   end
+
+  version = "0.5.1"
 
   test do
     assert_match "sshping #{version}", shell_output("#{bin}/sshping -V")

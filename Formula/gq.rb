@@ -2,7 +2,6 @@ class Gq < Formula
   desc "Probes the cards, filters and selects, sets visibility, and runs one command"
   homepage "https://github.com/TeddyHuang-00/gq"
   url "https://github.com/TeddyHuang-00/gq/archive/refs/tags/v0.3.0.tar.gz"
-  version "0.3.0"
   sha256 "588bef1c0c65aa2a6161ece9db7c34c72784727938996695f57608d5b29ed4ae"
   license "MIT"
 
@@ -26,6 +25,8 @@ class Gq < Formula
     pwsh_completion.install "target/release/completions/_gq.ps1"
     man.install "target/release/man/gq.1"
   end
+
+  version = "0.3.0"
 
   test do
     assert_match "gq #{version}", shell_output("#{bin}/gq -V")
